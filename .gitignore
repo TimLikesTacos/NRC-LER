@@ -1,0 +1,9 @@
+.env
+*.db
+*.bak
+*.log
+*.csv
+*.txt
+__pycache__/ 
+.pylib/
+**/target/

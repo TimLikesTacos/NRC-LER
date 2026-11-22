@@ -1,0 +1,737 @@
+{
+  "about": [
+    "Questions people ask, the tool call a good answer makes, and checks on the structured result.",
+    "Run the checks: LER_DB=../lers_analysis.db cargo test evals -- --ignored --nocapture",
+    "Manual check in Claude: ask `question` and see whether it makes a call like `call`.",
+    "Paths are JSON pointers into structured_content; a `*` segment means every array element.",
+    "ops: eq, contains (string or array), one_of, min, max, len, len_min, error_contains.",
+    "Counts are ranges so a data refresh doesn't break them; tighten them after a deliberate change."
+  ],
+  "cases": [
+    {
+      "id": "last-5-sequoyah",
+      "question": "Give me the last 5 LERs from Sequoyah",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "plant": "Sequoyah",
+          "limit": 5
+        }
+      },
+      "checks": [
+        {
+          "path": "/results",
+          "op": "len",
+          "value": 5
+        },
+        {
+          "path": "/results/*/site",
+          "op": "eq",
+          "value": "Sequoyah"
+        },
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "id": "misspelled-plant",
+      "question": "last 5 events at seqouah",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "plant": "seqouah",
+          "limit": 5
+        }
+      },
+      "checks": [
+        {
+          "path": "/notes/0",
+          "op": "contains",
+          "value": "Sequoyah"
+        },
+        {
+          "path": "/results/*/site",
+          "op": "eq",
+          "value": "Sequoyah"
+        }
+      ]
+    },
+    {
+      "id": "plant-abbreviation",
+      "question": "Any SQN events in 2016?",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "plant": "SQN",
+          "date_from": "2016",
+          "date_to": "2016"
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/*/site",
+          "op": "eq",
+          "value": "Sequoyah"
+        },
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": "plant-unit",
+      "question": "Recent events at Palo Verde Unit 2",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "plant": "Palo Verde Unit 2",
+          "limit": 10
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/*/docket",
+          "op": "eq",
+          "value": "05000529"
+        },
+        {
+          "path": "/notes/0",
+          "op": "contains",
+          "value": "Palo Verde"
+        }
+      ]
+    },
+    {
+      "id": "last-aux-feedwater",
+      "question": "Show me the last event that dealt with aux feed water",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "system": [
+            "BA"
+          ],
+          "limit": 1
+        }
+      },
+      "checks": [
+        {
+          "path": "/results",
+          "op": "len",
+          "value": 1
+        },
+        {
+          "path": "/results/0/eiis_code",
+          "op": "eq",
+          "value": "BA"
+        },
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 200
+        }
+      ]
+    },
+    {
+      "id": "operator-events-sequoyah",
+      "question": "Last 5 events at Sequoyah that were operator events",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "plant": "Sequoyah",
+          "who": [
+            "licensed_operator",
+            "non_licensed_operator"
+          ],
+          "limit": 5
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/*/site",
+          "op": "eq",
+          "value": "Sequoyah"
+        },
+        {
+          "path": "/results",
+          "op": "len_min",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": "sequoyah-period-counts",
+      "question": "How many LERs did Sequoyah publish 2010-2016 compared to 2018-2024?",
+      "call": {
+        "tool": "summarize_events",
+        "args": {
+          "plant": "Sequoyah",
+          "date_from": "2010",
+          "date_to": "2016",
+          "group_by": "year"
+        }
+      },
+      "checks": [
+        {
+          "path": "/total_events",
+          "op": "min",
+          "value": 30
+        },
+        {
+          "path": "/total_events",
+          "op": "max",
+          "value": 40
+        }
+      ]
+    },
+    {
+      "id": "biggest-contributor",
+      "question": "Summarize the biggest contributor to an event",
+      "call": {
+        "tool": "summarize_events",
+        "args": {
+          "group_by": "cause"
+        }
+      },
+      "checks": [
+        {
+          "path": "/groups/0/value",
+          "op": "one_of",
+          "value": [
+            "equipment",
+            "human_performance"
+          ]
+        },
+        {
+          "path": "/total_events",
+          "op": "min",
+          "value": 9000
+        }
+      ]
+    },
+    {
+      "id": "cause-by-decade",
+      "question": "How have causes changed by decade?",
+      "call": {
+        "tool": "summarize_events",
+        "args": {
+          "group_by": "decade",
+          "then_by": "cause"
+        }
+      },
+      "checks": [
+        {
+          "path": "/then_by",
+          "op": "eq",
+          "value": "cause"
+        },
+        {
+          "path": "/groups",
+          "op": "len_min",
+          "value": 5
+        },
+        {
+          "path": "/groups/0/by",
+          "op": "len_min",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": "who-errs",
+      "question": "When people cause events, who is it?",
+      "call": {
+        "tool": "summarize_events",
+        "args": {
+          "human_error": [
+            "yes",
+            "contributing"
+          ],
+          "group_by": "who"
+        }
+      },
+      "checks": [
+        {
+          "path": "/multi_valued",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "path": "/groups",
+          "op": "len_min",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "id": "get-by-docket-number",
+      "question": "Tell me about Sequoyah LER 2014-002",
+      "call": {
+        "tool": "get_event",
+        "args": {
+          "id": "05000327/2014-002"
+        }
+      },
+      "checks": [
+        {
+          "path": "/accession_number",
+          "op": "eq",
+          "value": "ML14219A568"
+        },
+        {
+          "path": "/title",
+          "op": "contains",
+          "value": "Containment Penetrations"
+        }
+      ]
+    },
+    {
+      "id": "ambiguous-number",
+      "question": "What was LER 2014-002?",
+      "call": {
+        "tool": "get_event",
+        "args": {
+          "id": "2014-002"
+        }
+      },
+      "checks": [
+        {
+          "op": "error_contains",
+          "value": "LERs match"
+        }
+      ]
+    },
+    {
+      "id": "quote-the-cause",
+      "question": "What does the report itself say caused Sequoyah 2014-002?",
+      "call": {
+        "tool": "get_event_text",
+        "args": {
+          "id": "ML14219A568",
+          "sections": [
+            "cause"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "path": "/sections/0/name",
+          "op": "eq",
+          "value": "cause"
+        },
+        {
+          "path": "/sections/0/chars",
+          "op": "min",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "id": "unknown-plant",
+      "question": "Events at Springfield nuclear plant",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "plant": "Springfield"
+        }
+      },
+      "checks": [
+        {
+          "op": "error_contains",
+          "value": "no plant"
+        }
+      ]
+    },
+    {
+      "id": "relevance-needs-text",
+      "question": "(model mistake) sort by relevance with no text",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "system": [
+            "BA"
+          ],
+          "sort": "relevance"
+        }
+      },
+      "checks": [
+        {
+          "op": "error_contains",
+          "value": "text"
+        }
+      ]
+    },
+    {
+      "id": "worst-events",
+      "question": "What's the worst event to occur? Give a summary",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "sort": "severity",
+          "reported_under": [
+            "seriously_degraded",
+            "emergency_declared"
+          ],
+          "limit": 10
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/0/severity",
+          "op": "min",
+          "value": 15
+        },
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 200
+        }
+      ]
+    },
+    {
+      "id": "rcs-breaches",
+      "question": "Which events actually breached the reactor coolant pressure boundary?",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "rcs_pressure_boundary": [
+            "breached"
+          ],
+          "limit": 20
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/*/barriers",
+          "op": "contains",
+          "value": "rcs_pressure_boundary: breached"
+        },
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 200
+        }
+      ]
+    },
+    {
+      "id": "emergencies",
+      "question": "Events where the plant declared an emergency",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "reported_under": [
+            "emergency_declared"
+          ],
+          "limit": 50
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/*/reported_under",
+          "op": "contains",
+          "value": "emergency_declared"
+        },
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "id": "barriers-by-decade",
+      "question": "How often are barriers degraded or breached, by decade?",
+      "call": {
+        "tool": "summarize_events",
+        "args": {
+          "any_barrier": [
+            "degraded",
+            "breached"
+          ],
+          "group_by": "decade",
+          "then_by": "rcs_pressure_boundary"
+        }
+      },
+      "checks": [
+        {
+          "path": "/total_events",
+          "op": "min",
+          "value": 800
+        },
+        {
+          "path": "/groups/0/by",
+          "op": "len_min",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "bad-barrier-value",
+      "question": "(model mistake) a barrier state outside the scale",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "containment": [
+            "failed"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "op": "error_contains",
+          "value": "expected one of `none`, `potential`"
+        }
+      ]
+    },
+    {
+      "id": "closest-to-disaster",
+      "question": "What's the closest to disaster to occur?",
+      "call": {
+        "tool": "list_precursors",
+        "args": {
+          "min_ccdp": 0.001,
+          "limit": 10
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/0/precursor/ccdp",
+          "op": "min",
+          "value": 0.1
+        },
+        {
+          "path": "/results/*/precursor/significant",
+          "op": "eq",
+          "value": true
+        },
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "id": "davis-besse-risk",
+      "question": "How risky was the Davis-Besse reactor head event?",
+      "call": {
+        "tool": "get_event",
+        "args": {
+          "id": "346-2002-002"
+        }
+      },
+      "checks": [
+        {
+          "path": "/precursor/ccdp",
+          "op": "eq",
+          "value": 0.006
+        },
+        {
+          "path": "/precursor/significant",
+          "op": "eq",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "riskiest-in-db",
+      "question": "Which LERs since 2000 did the NRC rate riskiest?",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "sort": "risk",
+          "date_from": "2000",
+          "limit": 5
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/0/precursor/ccdp",
+          "op": "min",
+          "value": 0.001
+        },
+        {
+          "path": "/results",
+          "op": "len",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "id": "precursors-at-plant",
+      "question": "What precursors has Browns Ferry had?",
+      "call": {
+        "tool": "list_precursors",
+        "args": {
+          "plant": "Browns Ferry",
+          "limit": 20
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/*/plant",
+          "op": "contains",
+          "value": "Browns Ferry"
+        },
+        {
+          "path": "/results/0/ler",
+          "op": "eq",
+          "value": "05000259/1975-006"
+        }
+      ]
+    },
+    {
+      "id": "isfsi-at-plant",
+      "question": "Any spent fuel storage (ISFSI) events at Diablo Canyon?",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "plant": "Diablo Canyon",
+          "reactor_type": [
+            "ISFSI"
+          ],
+          "limit": 10
+        }
+      },
+      "checks": [
+        {
+          "path": "/results/*/docket",
+          "op": "eq",
+          "value": "07200026"
+        },
+        {
+          "path": "/results",
+          "op": "len",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "isfsi-get-event",
+      "question": "Tell me about the Humboldt Bay ISFSI security staffing LER",
+      "call": {
+        "tool": "get_event",
+        "args": {
+          "id": "ML13178A142"
+        }
+      },
+      "checks": [
+        {
+          "path": "/reactor_type",
+          "op": "eq",
+          "value": "ISFSI"
+        },
+        {
+          "path": "/reporting_unit",
+          "op": "eq",
+          "value": "Humboldt Bay ISFSI"
+        }
+      ]
+    },
+    {
+      "id": "env-release-search",
+      "question": "Which LERs involved a release to the environment?",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "environmental_release": true,
+          "limit": 10
+        }
+      },
+      "checks": [
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 30
+        },
+        {
+          "path": "/total",
+          "op": "max",
+          "value": 400
+        }
+      ]
+    },
+    {
+      "id": "env-release-millstone-in",
+      "question": "Did Millstone LER 2014-006 release anything to the environment?",
+      "call": {
+        "tool": "get_event",
+        "args": {
+          "id": "ML14211A526"
+        }
+      },
+      "checks": [
+        {
+          "path": "/classification/radiological_release",
+          "op": "eq",
+          "value": "within_limits"
+        }
+      ]
+    },
+    {
+      "id": "env-release-barrier-not-release",
+      "question": "Did Brunswick LER 2019-002 (steam leak in the drywell) release to the environment?",
+      "call": {
+        "tool": "get_event",
+        "args": {
+          "id": "ML19143A375"
+        }
+      },
+      "checks": [
+        {
+          "path": "/classification/radiological_release",
+          "op": "eq",
+          "value": "none"
+        },
+        {
+          "path": "/classification/barriers/rcs_pressure_boundary",
+          "op": "one_of",
+          "value": [
+            "degraded",
+            "breached"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "env-release-salem-packing-not-release",
+      "question": "Did Salem LER 2013-001 release to the environment?",
+      "call": {
+        "tool": "get_event",
+        "args": {
+          "id": "ML13295A018"
+        }
+      },
+      "checks": [
+        {
+          "path": "/classification/radiological_release",
+          "op": "eq",
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "id": "oil-spills",
+      "question": "Any oil spills to the environment?",
+      "call": {
+        "tool": "search_events",
+        "args": {
+          "non_radiological_release": [
+            "oil_chemical_spill"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "path": "/total",
+          "op": "min",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}

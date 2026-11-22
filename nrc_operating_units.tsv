@@ -1,0 +1,98 @@
+# NRC list of operating power reactor units, https://www.nrc.gov/facilities-safety/operating-reactors/list-power-reactor-units
+# fetched 2026-11-14 (page last reviewed 2026-09-14). location = NRC's reference city, not necessarily the plant's state.
+name	docket	type	near	owner_operator	region	license
+Arkansas Nuclear 1	05000313	PWR	Russellville, AR	Entergy Nuclear Operations, Inc.	4	DPR-51
+Arkansas Nuclear 2	05000368	PWR	Russellville, AR	Entergy Nuclear Operations, Inc.	4	NPF-6
+Beaver Valley 1	05000334	PWR	McCandless, PA	Vistra Corporation	1	DPR-66
+Beaver Valley 2	05000412	PWR	McCandless, PA	Vistra Corporation	1	NPF-73
+Braidwood 1	05000456	PWR	Joliet, IL	Constellation Energy Generation, LLC	3	NPF-72
+Braidwood 2	05000457	PWR	Joliet, IL	Constellation Energy Generation, LLC	3	NPF-77
+Browns Ferry 1	05000259	BWR	Huntsville, AL	Tennessee Valley Authority	2	DPR-33
+Browns Ferry 2	05000260	BWR	Huntsville, AL	Tennessee Valley Authority	2	DPR-52
+Browns Ferry 3	05000296	BWR	Huntsville, AL	Tennessee Valley Authority	2	DPR-68
+Brunswick 1	05000325	BWR	Wilmington, NC	Duke Energy Progress, LLC	2	DPR-71
+Brunswick 2	05000324	BWR	Wilmington, NC	Duke Energy Progress, LLC	2	DPR-62
+Byron 1	05000454	PWR	Rockford, IL	Constellation Energy Generation, LLC	3	NPF-37
+Byron 2	05000455	PWR	Rockford, IL	Constellation Energy Generation, LLC	3	NPF-66
+Callaway	05000483	PWR	Jefferson City, MO	Ameren UE	4	NPF-30
+Calvert Cliffs 1	05000317	PWR	Annapolis, MD	Constellation Energy Generation, LLC	1	DPR-53
+Calvert Cliffs 2	05000318	PWR	Annapolis, MD	Constellation Energy Generation, LLC	1	DPR-69
+Catawba 1	05000413	PWR	Charlotte, NC	Duke Energy Carolinas, LLC	2	NPF-35
+Catawba 2	05000414	PWR	Charlotte, NC	Duke Energy Carolinas, LLC	2	NPF-52
+Clinton	05000461	BWR	Bloomington, IL	Constellation Energy Generation, LLC	3	NPF-62
+Columbia Generating Station	05000397	BWR	Pasco, WA	Energy Northwest	4	NPF-21
+Comanche Peak 1	05000445	PWR	Fort Worth, TX	Vistra Operations Company, LLC	4	NPF-87
+Comanche Peak 2	05000446	PWR	Fort Worth, TX	Vistra Operations Company, LLC	4	NPF-89
+Cooper	05000298	BWR	Nebraska City, NE	Nebraska Public Power District	4	DPR-46
+D.C. Cook 1	05000315	PWR	Benton Harbor, MI	Indiana/Michigan Power Co.	3	DPR-58
+D.C. Cook 2	05000316	PWR	Benton Harbor, MI	Indiana/Michigan Power Co.	3	DPR-74
+Davis-Besse	05000346	PWR	Toledo, OH	Energy Harbor Nuclear Corp.	3	NPF-3
+Diablo Canyon 1	05000275	PWR	San Luis Obispo, CA	Pacific Gas & Electric Co.	4	DPR-80
+Diablo Canyon 2	05000323	PWR	San Luis Obispo, CA	Pacific Gas & Electric Co.	4	DPR-82
+Dresden 2	05000237	BWR	Joliet, IL	Constellation Energy Generation, LLC	3	DPR-19
+Dresden 3	05000249	BWR	Joliet, IL	Constellation Energy Generation, LLC	3	DPR-25
+Farley 1	05000348	PWR	Dothan, AL	Southern Nuclear Operating Co.	2	NPF-2
+Farley 2	05000364	PWR	Dothan, AL	Southern Nuclear Operating Co.	2	NPF-8
+Fermi 2	05000341	BWR	Toledo, OH	DTE Electric Company	3	NPF-43
+FitzPatrick	05000333	BWR	Oswego, NY	Constellation Energy Generation, LLC	1	DPR-59
+Ginna	05000244	PWR	Rochester, NY	Constellation Energy Generation, LLC	1	DPR-18
+Grand Gulf 1	05000416	BWR	Vicksburg, MS	Entergy Nuclear Operations, Inc.	4	NPF-29
+Hatch 1	05000321	BWR	Vidalia, GA	Southern Nuclear Operating Co., Inc.	2	DPR-57
+Hatch 2	05000366	BWR	Vidalia, GA	Southern Nuclear Operating Co., Inc.	2	NPF-5
+Hope Creek 1	05000354	BWR	Wilmington, DE	PSEG Nuclear, LLC	1	NPF-57
+La Salle 1	05000373	BWR	Ottawa, IL	Constellation Energy Generation, LLC	3	NPF-11
+La Salle 2	05000374	BWR	Ottawa, IL	Constellation Energy Generation, LLC	3	NPF-18
+Limerick 1	05000352	BWR	Philadelphia, PA	Constellation Energy Generation, LLC	1	NPF-39
+Limerick 2	05000353	BWR	Philadelphia, PA	Constellation Energy Generation, LLC	1	NPF-85
+McGuire 1	05000369	PWR	Charlotte, NC	Duke Energy Carolinas, LLC	2	NPF-9
+McGuire 2	05000370	PWR	Charlotte, NC	Duke Energy Carolinas, LLC	2	NPF-17
+Millstone 2	05000336	PWR	New London, CT	Dominion Generation	1	DPR-65
+Millstone 3	05000423	PWR	New London, CT	Dominion Generation	1	NPF-49
+Monticello	05000263	BWR	Minneapolis, MN	Northern States Power Company – Minnesota	3	DPR-22
+Nine Mile Point 1	05000220	BWR	Oswego, NY	Constellation Energy Generation, LLC	1	DPR-63
+Nine Mile Point 2	05000410	BWR	Oswego, NY	Constellation Energy Generation, LLC	1	NPF-69
+North Anna 1	05000338	PWR	Richmond, VA	Dominion Generation	2	NPF-4
+North Anna 2	05000339	PWR	Richmond, VA	Dominion Generation	2	NPF-7
+Oconee 1	05000269	PWR	Greenville, SC	Duke Energy Carolinas, LLC	2	DPR-38
+Oconee 2	05000270	PWR	Greenville, SC	Duke Energy Carolinas, LLC	2	DPR-47
+Oconee 3	05000287	PWR	Greenville, SC	Duke Energy Carolinas, LLC	2	DPR-55
+Palisades	05000255	PWR	South Haven, MI	Holtec Palisades, LLC	3	DPR-20
+Palo Verde 1	05000528	PWR	Phoenix, AZ	Arizona Public Service Co.	4	NPF-41
+Palo Verde 2	05000529	PWR	Phoenix, AZ	Arizona Public Service Co.	4	NPF-51
+Palo Verde 3	05000530	PWR	Phoenix, AZ	Arizona Public Service Co.	4	NPF-74
+Peach Bottom 2	05000277	BWR	Lancaster, PA	Constellation Energy Generation, LLC	1	DPR-44
+Peach Bottom 3	05000278	BWR	Lancaster, PA	Constellation Energy Generation, LLC	1	DPR-56
+Perry 1	05000440	BWR	Cleveland, OH	FirstEnergy Nuclear Operating Co.	3	NPF-58
+Point Beach 1	05000266	PWR	Manitowoc, WI	NextEra Energy Point Beach, LLC	3	DPR-24
+Point Beach 2	05000301	PWR	Manitowoc, WI	NextEra Energy Point Beach, LLC	3	DPR-27
+Prairie Island 1	05000282	PWR	Minneapolis, MN	Northern States Power Company – Minnesota	3	DPR-42
+Prairie Island 2	05000306	PWR	Minneapolis, MN	Northern States Power Company – Minnesota	3	DPR-60
+Quad Cities 1	05000254	BWR	Moline, IL	Constellation Energy Generation, LLC	3	DPR-29
+Quad Cities 2	05000265	BWR	Moline, IL	Constellation Energy Generation, LLC	3	DPR-30
+River Bend 1	05000458	BWR	Baton Rouge, LA	Entergy Nuclear Operations, Inc.	4	NPF-47
+Robinson 2	05000261	PWR	Florence, SC	Duke Energy Progress, LLC	2	DPR-23
+Saint Lucie 1	05000335	PWR	Ft. Pierce, FL	Florida Power & Light Co.	2	DPR-67
+Saint Lucie 2	05000389	PWR	Ft. Pierce, FL	Florida Power & Light Co.	2	NPF-16
+Salem 1	05000272	PWR	Wilmington, DE	PSEG Nuclear, LLC	1	DPR-70
+Salem 2	05000311	PWR	Wilmington, DE	PSEG Nuclear, LLC	1	DPR-75
+Seabrook 1	05000443	PWR	Portsmouth, NH	NextEra Energy Seabrook, LLC	1	NPF-86
+Sequoyah 1	05000327	PWR	Chattanooga, TN	Tennessee Valley Authority	2	DPR-77
+Sequoyah 2	05000328	PWR	Chattanooga, TN	Tennessee Valley Authority	2	DPR-79
+Shearon Harris 1	05000400	PWR	Raleigh, NC	Duke Energy Progress, LLC	2	NPF-63
+South Texas 1	05000498	PWR	Houston, TX	STP Nuclear Operating Co.	4	NPF-76
+South Texas 2	05000499	PWR	Houston, TX	STP Nuclear Operating Co.	4	NPF-80
+Summer	05000395	PWR	Columbia, SC	South Carolina Electric & Gas Co.	2	NPF-12
+Surry 1	05000280	PWR	Newport News, VA	Dominion Generation	2	DPR-32
+Surry 2	05000281	PWR	Newport News, VA	Dominion Generation	2	DPR-37
+Susquehanna 1	05000387	BWR	Harrisburg, PA	Susquehanna Nuclear, LLC	1	NPF-14
+Susquehanna 2	05000388	BWR	Harrisburg, PA	Susquehanna Nuclear, LLC	1	NPF-22
+Turkey Point 3	05000250	PWR	Miami, FL	Florida Power & Light Co.	2	DPR-31
+Turkey Point 4	05000251	PWR	Miami, FL	Florida Power & Light Co.	2	DPR-41
+Vogtle 1	05000424	PWR	Augusta, GA	Southern Nuclear Operating Co.	2	NPF-68
+Vogtle 2	05000425	PWR	Augusta, GA	Southern Nuclear Operating Co.	2	NPF-81
+Vogtle 3	05200025	PWR	Augusta, GA	Southern Nuclear Operating Co.	2	NPF-91
+Vogtle 4	05200026	PWR	Augusta, GA	Southern Nuclear Operating Co.	2	NPF-92
+Waterford 3	05000382	PWR	New Orleans, LA	Entergy Nuclear Operations, Inc.	4	NPF-38
+Watts Bar 1	05000390	PWR	Knoxville, TN	Tennessee Valley Authority	2	NPF-90
+Watts Bar 2	05000391	PWR	Knoxville, TN	Tennessee Valley Authority	2	NPF-96
+Wolf Creek 1	05000482	PWR	Burlington, KS	Wolf Creek Nuclear Operating Corp.	4	NPF-42
